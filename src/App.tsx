@@ -1,8 +1,8 @@
 import "./App.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useSnackbar } from "@mui/base/useSnackbar";
-import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+import Snackbar from "@mui/material/Snackbar";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -15,12 +15,6 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const { getRootProps, onClickAway } = useSnackbar({
-    onClose: handleClose,
-    open,
-    autoHideDuration: 5000,
-  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -226,11 +220,14 @@ function App() {
           ))}
         </div>
       </div>
-      {open ? (
-        <ClickAwayListener onClickAway={onClickAway}>
-          <div {...getRootProps()}>{snackbarMessage}</div>
-        </ClickAwayListener>
-      ) : null}
+      <ClickAwayListener onClickAway={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          message={snackbarMessage}
+        />
+      </ClickAwayListener>
     </div>
   );
 }
