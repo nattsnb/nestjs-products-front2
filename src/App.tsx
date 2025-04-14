@@ -232,8 +232,8 @@ function App() {
           <button onClick={hideList}>HIDE LIST</button>
         </StyledButtonsDiv>
         <div>
-          {allProducts.map((product) => (
-            <div>{product.name}</div>
+          {allProducts.map((product, index) => (
+            <div key={index}>{product.name}</div>
           ))}
         </div>
       </StyledTitleDiv>
