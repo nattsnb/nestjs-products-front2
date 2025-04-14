@@ -1,8 +1,13 @@
-import "./App.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import {
+  StyledButtonsDiv,
+  StyledDiv,
+  StyledLabel,
+  StyledTitleDiv,
+} from "./App.styled.tsx";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -139,87 +144,99 @@ function App() {
 
   return (
     <div>
-      <div>
+      <p>create user</p>
+      <StyledTitleDiv>
         <form onSubmit={signUpForm.handleSubmit(handleSignUp)}>
-          <div>
-            <label>Name:</label>
+          <StyledDiv>
+            <StyledLabel>Name:</StyledLabel>
             <input
               {...signUpForm.register("name", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>email:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>email:</StyledLabel>
             <input
               {...signUpForm.register("email", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Password:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Password:</StyledLabel>
             <input
               {...signUpForm.register("password", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">CREATE</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">CREATE</button>
+          </StyledButtonsDiv>
         </form>
-      </div>
-      <div>
+      </StyledTitleDiv>
+      <p>log in/out</p>
+      <StyledTitleDiv>
         <form onSubmit={logInForm.handleSubmit(handleLogIn)}>
-          <div>
-            <label>email:</label>
+          <StyledDiv>
+            <StyledLabel>email:</StyledLabel>
             <input
               {...logInForm.register("email", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Password:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Password:</StyledLabel>
             <input
               {...logInForm.register("password", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">LOG IN</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">LOG IN</button>
+            <button onClick={handleLogOut}>LOG OUT</button>
+          </StyledButtonsDiv>
         </form>
-        <button onClick={handleLogOut}>LOG OUT</button>
-      </div>
-      <div>
+      </StyledTitleDiv>
+      <p>create product</p>
+      <StyledTitleDiv>
         <form onSubmit={newProductForm.handleSubmit(handleCreateProduct)}>
-          <div>
-            <label>Name:</label>
+          <StyledDiv>
+            <StyledLabel>Name:</StyledLabel>
             <input
               {...newProductForm.register("name", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Price:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Price:</StyledLabel>
             <input
               {...newProductForm.register("priceInPLNgr", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Is in stock:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Is in stock:</StyledLabel>
             <input
               {...newProductForm.register("isInStock", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">CREATE</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">CREATE</button>
+          </StyledButtonsDiv>
         </form>
-      </div>
-      <div>
-        <button onClick={getAllProducts}>LIST ALL PRODUCTS</button>
-        <button onClick={hideList}>HIDE LIST</button>
+      </StyledTitleDiv>
+      <p>product list</p>
+      <StyledTitleDiv>
+        <StyledButtonsDiv>
+          <button onClick={getAllProducts}>LIST ALL PRODUCTS</button>
+          <button onClick={hideList}>HIDE LIST</button>
+        </StyledButtonsDiv>
         <div>
           {allProducts.map((product) => (
             <div>{product.name}</div>
           ))}
         </div>
-      </div>
+      </StyledTitleDiv>
       <ClickAwayListener onClickAway={handleClose}>
         <Snackbar
           open={open}
