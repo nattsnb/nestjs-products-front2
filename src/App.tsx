@@ -6,7 +6,9 @@ import {
   StyledButtonsDiv,
   StyledDiv,
   StyledLabel,
+  StyledListDiv,
   StyledTitleDiv,
+  StyledVerticalDiv,
 } from "./App.styled.tsx";
 
 function App() {
@@ -135,7 +137,6 @@ function App() {
     } else {
       setSnackbarMessage(`Error producing list product.`);
     }
-    handleOpen();
   };
 
   const hideList = () => {
@@ -192,7 +193,9 @@ function App() {
           </StyledDiv>
           <StyledButtonsDiv>
             <button type="submit">LOG IN</button>
-            <button onClick={handleLogOut}>LOG OUT</button>
+            <button type="button" onClick={handleLogOut}>
+              LOG OUT
+            </button>
           </StyledButtonsDiv>
         </form>
       </StyledTitleDiv>
@@ -226,17 +229,17 @@ function App() {
         </form>
       </StyledTitleDiv>
       <p>product list</p>
-      <StyledTitleDiv>
-        <StyledButtonsDiv>
+      <StyledVerticalDiv>
+        <div>
           <button onClick={getAllProducts}>LIST ALL PRODUCTS</button>
           <button onClick={hideList}>HIDE LIST</button>
-        </StyledButtonsDiv>
-        <div>
-          {allProducts.map((product, index) => (
-            <div key={index}>{product.name}</div>
-          ))}
         </div>
-      </StyledTitleDiv>
+        <StyledListDiv>
+          {allProducts.map((product) => (
+            <div key={product.id}>{product.name}</div>
+          ))}
+        </StyledListDiv>
+      </StyledVerticalDiv>
       <ClickAwayListener onClickAway={handleClose}>
         <Snackbar
           open={open}

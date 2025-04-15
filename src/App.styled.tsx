@@ -20,3 +20,14 @@ export const StyledButtonsDiv = styled("div")`
   justify-content: center;
   margin-top: 5px;
 `;
+
+export const StyledVerticalDiv = styled("div")`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StyledListDiv = styled("div")`
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+`;
