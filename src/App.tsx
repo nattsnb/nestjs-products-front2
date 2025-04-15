@@ -1,8 +1,15 @@
-import "./App.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useSnackbar } from "@mui/base/useSnackbar";
-import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+import Snackbar from "@mui/material/Snackbar";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import {
+  StyledButtonsDiv,
+  StyledDiv,
+  StyledLabel,
+  StyledListDiv,
+  StyledTitleDiv,
+  StyledVerticalDiv,
+} from "./App.styled.tsx";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -15,12 +22,6 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const { getRootProps, onClickAway } = useSnackbar({
-    onClose: handleClose,
-    open,
-    autoHideDuration: 5000,
-  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -136,7 +137,6 @@ function App() {
     } else {
       setSnackbarMessage(`Error producing list product.`);
     }
-    handleOpen();
   };
 
   const hideList = () => {
@@ -145,92 +145,109 @@ function App() {
 
   return (
     <div>
-      <div>
+      <p>create user</p>
+      <StyledTitleDiv>
         <form onSubmit={signUpForm.handleSubmit(handleSignUp)}>
-          <div>
-            <label>Name:</label>
+          <StyledDiv>
+            <StyledLabel>Name:</StyledLabel>
             <input
               {...signUpForm.register("name", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>email:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>email:</StyledLabel>
             <input
               {...signUpForm.register("email", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Password:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Password:</StyledLabel>
             <input
               {...signUpForm.register("password", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">CREATE</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">CREATE</button>
+          </StyledButtonsDiv>
         </form>
-      </div>
-      <div>
+      </StyledTitleDiv>
+      <p>log in/out</p>
+      <StyledTitleDiv>
         <form onSubmit={logInForm.handleSubmit(handleLogIn)}>
-          <div>
-            <label>email:</label>
+          <StyledDiv>
+            <StyledLabel>email:</StyledLabel>
             <input
               {...logInForm.register("email", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Password:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Password:</StyledLabel>
             <input
               {...logInForm.register("password", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">LOG IN</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">LOG IN</button>
+            <button type="button" onClick={handleLogOut}>
+              LOG OUT
+            </button>
+          </StyledButtonsDiv>
         </form>
-        <button onClick={handleLogOut}>LOG OUT</button>
-      </div>
-      <div>
+      </StyledTitleDiv>
+      <p>create product</p>
+      <StyledTitleDiv>
         <form onSubmit={newProductForm.handleSubmit(handleCreateProduct)}>
-          <div>
-            <label>Name:</label>
+          <StyledDiv>
+            <StyledLabel>Name:</StyledLabel>
             <input
               {...newProductForm.register("name", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Price:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Price:</StyledLabel>
             <input
               {...newProductForm.register("priceInPLNgr", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <div>
-            <label>Is in stock:</label>
+          </StyledDiv>
+          <StyledDiv>
+            <StyledLabel>Is in stock:</StyledLabel>
             <input
               {...newProductForm.register("isInStock", { required: true })}
               autoComplete="username"
             />
-          </div>
-          <button type="submit">CREATE</button>
+          </StyledDiv>
+          <StyledButtonsDiv>
+            <button type="submit">CREATE</button>
+          </StyledButtonsDiv>
         </form>
-      </div>
-      <div>
-        <button onClick={getAllProducts}>LIST ALL PRODUCTS</button>
-        <button onClick={hideList}>HIDE LIST</button>
+      </StyledTitleDiv>
+      <p>product list</p>
+      <StyledVerticalDiv>
         <div>
-          {allProducts.map((product) => (
-            <div>{product.name}</div>
-          ))}
+          <button onClick={getAllProducts}>LIST ALL PRODUCTS</button>
+          <button onClick={hideList}>HIDE LIST</button>
         </div>
-      </div>
-      {open ? (
-        <ClickAwayListener onClickAway={onClickAway}>
-          <div {...getRootProps()}>{snackbarMessage}</div>
-        </ClickAwayListener>
-      ) : null}
+        <StyledListDiv>
+          {allProducts.map((product) => (
+            <div key={product.id}>{product.name}</div>
+          ))}
+        </StyledListDiv>
+      </StyledVerticalDiv>
+      <ClickAwayListener onClickAway={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          message={snackbarMessage}
+        />
+      </ClickAwayListener>
     </div>
   );
 }
